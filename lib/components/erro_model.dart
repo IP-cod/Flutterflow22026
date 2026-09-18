@@ -1,14 +1,12 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/index.dart';
-import 'splash_pag_widget.dart' show SplashPagWidget;
+import 'erro_widget.dart' show ErroWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class SplashPagModel extends FlutterFlowModel<SplashPagWidget> {
+class ErroModel extends FlutterFlowModel<ErroWidget> {
   @override
   void initState(BuildContext context) {}
 

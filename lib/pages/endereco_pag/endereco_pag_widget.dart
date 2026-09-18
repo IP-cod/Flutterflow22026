@@ -37,14 +37,17 @@ class _EnderecoPagWidgetState extends State<EnderecoPagWidget> {
     _model.textFieldLogradouroTextController ??= TextEditingController();
     _model.textFieldLogradouroFocusNode ??= FocusNode();
 
+    _model.textController3 ??= TextEditingController();
+    _model.textFieldFocusNode1 ??= FocusNode();
+
     _model.textFieldBairroTextController ??= TextEditingController();
     _model.textFieldBairroFocusNode ??= FocusNode();
 
-    _model.textFieldCIdadeTextController ??= TextEditingController();
-    _model.textFieldCIdadeFocusNode ??= FocusNode();
+    _model.textController5 ??= TextEditingController();
+    _model.textFieldFocusNode2 ??= FocusNode();
 
-    _model.textFieldUFTextController ??= TextEditingController();
-    _model.textFieldUFFocusNode ??= FocusNode();
+    _model.textController6 ??= TextEditingController();
+    _model.textFieldFocusNode3 ??= FocusNode();
   }
 
   @override
@@ -112,7 +115,7 @@ class _EnderecoPagWidgetState extends State<EnderecoPagWidget> {
                   alignment: AlignmentDirectional(0.0, 0.0),
                   child: Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(20.0, 50.0, 20.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 0.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -159,35 +162,56 @@ class _EnderecoPagWidgetState extends State<EnderecoPagWidget> {
                                     _model.textFieldCEPTextController?.text =
                                         _model.textFieldCEPTextController.text;
                                   });
-                                  _model.apiResultadoCEP =
+                                  _model.apiResultoub =
                                       await BuscarCEPCall.call(
                                     cep: _model.textFieldCEPTextController.text,
                                   );
 
-                                  safeSetState(() {
-                                    _model.textFieldLogradouroTextController
-                                        ?.text = BuscarCEPCall.rua(
-                                      (_model.apiResultadoCEP?.jsonBody ?? ''),
-                                    )!;
-                                  });
-                                  safeSetState(() {
-                                    _model.textFieldBairroTextController?.text =
-                                        BuscarCEPCall.bairro(
-                                      (_model.apiResultadoCEP?.jsonBody ?? ''),
-                                    )!;
-                                  });
-                                  safeSetState(() {
-                                    _model.textFieldCIdadeTextController?.text =
-                                        BuscarCEPCall.cidade(
-                                      (_model.apiResultadoCEP?.jsonBody ?? ''),
-                                    )!;
-                                  });
-                                  safeSetState(() {
-                                    _model.textFieldUFTextController?.text =
-                                        BuscarCEPCall.uf(
-                                      (_model.apiResultadoCEP?.jsonBody ?? ''),
-                                    )!;
-                                  });
+                                  if ((_model.apiResultoub?.succeeded ??
+                                      true)) {
+                                    safeSetState(() {
+                                      _model.textFieldLogradouroTextController
+                                          ?.text = BuscarCEPCall.rua(
+                                        (_model.apiResultoub?.jsonBody ?? ''),
+                                      )!;
+                                    });
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          'CEP Válido!',
+                                          style: TextStyle(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                          ),
+                                        ),
+                                        duration: Duration(milliseconds: 4000),
+                                        backgroundColor:
+                                            FlutterFlowTheme.of(context)
+                                                .secondary,
+                                      ),
+                                    );
+                                    safeSetState(() {
+                                      _model.textFieldBairroTextController
+                                          ?.text = BuscarCEPCall.bairro(
+                                        (_model.apiResultoub?.jsonBody ?? ''),
+                                      )!;
+                                    });
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          'CEP Inválido!',
+                                          style: TextStyle(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                          ),
+                                        ),
+                                        duration: Duration(milliseconds: 4000),
+                                        backgroundColor:
+                                            FlutterFlowTheme.of(context).error,
+                                      ),
+                                    );
+                                  }
 
                                   safeSetState(() {});
                                 },
@@ -300,7 +324,7 @@ class _EnderecoPagWidgetState extends State<EnderecoPagWidget> {
                           alignment: AlignmentDirectional(-0.78, -0.63),
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 20.0, 175.0, 0.0),
+                                0.0, 10.0, 175.0, 0.0),
                             child: Text(
                               'Logradouro',
                               style: FlutterFlowTheme.of(context)
@@ -436,10 +460,148 @@ class _EnderecoPagWidgetState extends State<EnderecoPagWidget> {
                           ),
                         ),
                         Align(
+                          alignment: AlignmentDirectional(-0.79, -0.86),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 10.0, 200.0, 0.0),
+                            child: Text(
+                              'Número',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FontWeight.w900,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w900,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              10.0, 0.0, 10.0, 0.0),
+                          child: Container(
+                            width: 200.0,
+                            child: TextFormField(
+                              controller: _model.textController3,
+                              focusNode: _model.textFieldFocusNode1,
+                              autofocus: false,
+                              enabled: true,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                isDense: true,
+                                labelStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .override(
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .fontStyle,
+                                      ),
+                                      letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
+                                    ),
+                                hintText: 'Número',
+                                hintStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .override(
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .fontStyle,
+                                      ),
+                                      letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .fontStyle,
+                                    ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).error,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).error,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                filled: true,
+                                fillColor: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+                                    letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
+                              cursorColor:
+                                  FlutterFlowTheme.of(context).primaryText,
+                              enableInteractiveSelection: true,
+                              validator: _model.textController3Validator
+                                  .asValidator(context),
+                            ),
+                          ),
+                        ),
+                        Align(
                           alignment: AlignmentDirectional(-0.77, -0.4),
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 20.0, 200.0, 0.0),
+                                0.0, 10.0, 200.0, 0.0),
                             child: Text(
                               'Bairro',
                               style: FlutterFlowTheme.of(context)
@@ -574,12 +736,12 @@ class _EnderecoPagWidgetState extends State<EnderecoPagWidget> {
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(-0.82, -0.21),
+                          alignment: AlignmentDirectional(-0.77, -0.63),
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 20.0, 175.0, 0.0),
+                                5.0, 10.0, 200.0, 0.0),
                             child: Text(
-                              'Cidade',
+                              'Complemento',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -589,7 +751,8 @@ class _EnderecoPagWidgetState extends State<EnderecoPagWidget> {
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                    color: Colors.white,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w900,
                                     fontStyle: FlutterFlowTheme.of(context)
@@ -605,8 +768,8 @@ class _EnderecoPagWidgetState extends State<EnderecoPagWidget> {
                           child: Container(
                             width: 200.0,
                             child: TextFormField(
-                              controller: _model.textFieldCIdadeTextController,
-                              focusNode: _model.textFieldCIdadeFocusNode,
+                              controller: _model.textController5,
+                              focusNode: _model.textFieldFocusNode2,
                               autofocus: false,
                               enabled: true,
                               obscureText: false,
@@ -631,7 +794,7 @@ class _EnderecoPagWidgetState extends State<EnderecoPagWidget> {
                                           .labelMedium
                                           .fontStyle,
                                     ),
-                                hintText: 'Cidade',
+                                hintText: 'Complemento',
                                 hintStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
@@ -705,19 +868,18 @@ class _EnderecoPagWidgetState extends State<EnderecoPagWidget> {
                               cursorColor:
                                   FlutterFlowTheme.of(context).primaryText,
                               enableInteractiveSelection: true,
-                              validator: _model
-                                  .textFieldCIdadeTextControllerValidator
+                              validator: _model.textController5Validator
                                   .asValidator(context),
                             ),
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(-0.78, 0.01),
+                          alignment: AlignmentDirectional(-0.77, -0.4),
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 20.0, 200.0, 0.0),
+                                5.0, 10.0, 200.0, 0.0),
                             child: Text(
-                              'UF',
+                              'Referencia',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -727,7 +889,8 @@ class _EnderecoPagWidgetState extends State<EnderecoPagWidget> {
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                    color: Colors.white,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w900,
                                     fontStyle: FlutterFlowTheme.of(context)
@@ -743,8 +906,8 @@ class _EnderecoPagWidgetState extends State<EnderecoPagWidget> {
                           child: Container(
                             width: 200.0,
                             child: TextFormField(
-                              controller: _model.textFieldUFTextController,
-                              focusNode: _model.textFieldUFFocusNode,
+                              controller: _model.textController6,
+                              focusNode: _model.textFieldFocusNode3,
                               autofocus: false,
                               enabled: true,
                               obscureText: false,
@@ -769,7 +932,7 @@ class _EnderecoPagWidgetState extends State<EnderecoPagWidget> {
                                           .labelMedium
                                           .fontStyle,
                                     ),
-                                hintText: 'UF',
+                                hintText: 'Referencia',
                                 hintStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
@@ -843,15 +1006,14 @@ class _EnderecoPagWidgetState extends State<EnderecoPagWidget> {
                               cursorColor:
                                   FlutterFlowTheme.of(context).primaryText,
                               enableInteractiveSelection: true,
-                              validator: _model
-                                  .textFieldUFTextControllerValidator
+                              validator: _model.textController6Validator
                                   .asValidator(context),
                             ),
                           ),
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 50.0, 0.0, 0.0),
+                              0.0, 30.0, 0.0, 0.0),
                           child: FFButtonWidget(
                             onPressed: () async {
                               context.pushNamed(GrupoPagWidget.routeName);

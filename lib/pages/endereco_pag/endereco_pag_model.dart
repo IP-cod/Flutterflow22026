@@ -18,26 +18,29 @@ class EnderecoPagModel extends FlutterFlowModel<EnderecoPagWidget> {
   TextEditingController? textFieldCEPTextController;
   String? Function(BuildContext, String?)? textFieldCEPTextControllerValidator;
   // Stores action output result for [Backend Call - API (BuscarCEP)] action in TextFieldCEP widget.
-  ApiCallResponse? apiResultadoCEP;
+  ApiCallResponse? apiResultoub;
   // State field(s) for TextFieldLogradouro widget.
   FocusNode? textFieldLogradouroFocusNode;
   TextEditingController? textFieldLogradouroTextController;
   String? Function(BuildContext, String?)?
       textFieldLogradouroTextControllerValidator;
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode1;
+  TextEditingController? textController3;
+  String? Function(BuildContext, String?)? textController3Validator;
   // State field(s) for TextFieldBairro widget.
   FocusNode? textFieldBairroFocusNode;
   TextEditingController? textFieldBairroTextController;
   String? Function(BuildContext, String?)?
       textFieldBairroTextControllerValidator;
-  // State field(s) for TextFieldCIdade widget.
-  FocusNode? textFieldCIdadeFocusNode;
-  TextEditingController? textFieldCIdadeTextController;
-  String? Function(BuildContext, String?)?
-      textFieldCIdadeTextControllerValidator;
-  // State field(s) for TextFieldUF widget.
-  FocusNode? textFieldUFFocusNode;
-  TextEditingController? textFieldUFTextController;
-  String? Function(BuildContext, String?)? textFieldUFTextControllerValidator;
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode2;
+  TextEditingController? textController5;
+  String? Function(BuildContext, String?)? textController5Validator;
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode3;
+  TextEditingController? textController6;
+  String? Function(BuildContext, String?)? textController6Validator;
 
   @override
   void initState(BuildContext context) {}
@@ -50,13 +53,16 @@ class EnderecoPagModel extends FlutterFlowModel<EnderecoPagWidget> {
     textFieldLogradouroFocusNode?.dispose();
     textFieldLogradouroTextController?.dispose();
 
+    textFieldFocusNode1?.dispose();
+    textController3?.dispose();
+
     textFieldBairroFocusNode?.dispose();
     textFieldBairroTextController?.dispose();
 
-    textFieldCIdadeFocusNode?.dispose();
-    textFieldCIdadeTextController?.dispose();
+    textFieldFocusNode2?.dispose();
+    textController5?.dispose();
 
-    textFieldUFFocusNode?.dispose();
-    textFieldUFTextController?.dispose();
+    textFieldFocusNode3?.dispose();
+    textController6?.dispose();
   }
 }

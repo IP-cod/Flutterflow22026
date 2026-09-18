@@ -6,3 +6,5 @@ export '/pages/veri_email_pag/veri_email_pag_widget.dart'
 export '/pages/endereco_pag/endereco_pag_widget.dart' show EnderecoPagWidget;
 export '/pages/grupo_pag/grupo_pag_widget.dart' show GrupoPagWidget;
 export '/pages/splash_pag/splash_pag_widget.dart' show SplashPagWidget;
+export '/pages/page_boas_vindas/page_boas_vindas_widget.dart'
+    show PageBoasVindasWidget;

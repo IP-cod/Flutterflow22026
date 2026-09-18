@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
+
+import 'auth/custom_auth/auth_util.dart';
+import 'auth/custom_auth/custom_auth_user_provider.dart';
+
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/nav/nav.dart';
@@ -14,6 +18,8 @@ void main() async {
   usePathUrlStrategy();
 
   await FlutterFlowTheme.initialize();
+
+  await authManager.initialize();
 
   runApp(MyApp());
 }
@@ -45,7 +51,7 @@ class _MyAppState extends State<MyApp> {
       _router.routerDelegate.currentConfiguration.matches
           .map((e) => getRoute(e))
           .toList();
-  bool displaySplashImage = true;
+  late Stream<SaborLocalV05AuthUser> userStream;
 
   @override
   void initState() {
@@ -53,9 +59,15 @@ class _MyAppState extends State<MyApp> {
 
     _appStateNotifier = AppStateNotifier.instance;
     _router = createRouter(_appStateNotifier);
+    userStream = saborLocalV05AuthUserStream()
+      ..listen((user) {
+        _appStateNotifier.update(user);
+      });
 
-    Future.delayed(Duration(milliseconds: 3000),
-        () => safeSetState(() => _appStateNotifier.stopShowingSplashImage()));
+    Future.delayed(
+      Duration(milliseconds: 5000),
+      () => _appStateNotifier.stopShowingSplashImage(),
+    );
   }
 
   void setThemeMode(ThemeMode mode) => safeSetState(() {
@@ -67,7 +79,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'Sabor Local v04',
+      title: 'Sabor Local v05',
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
