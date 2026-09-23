@@ -51,7 +51,7 @@ class _SplashPagWidgetState extends State<SplashPagWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Color(0xFFD09D64),
+        backgroundColor: Color(0xFFFFE6CC),
         body: Stack(
           children: [
             Align(

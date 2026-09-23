@@ -29,8 +29,8 @@ class AppStateNotifier extends ChangeNotifier {
   static AppStateNotifier? _instance;
   static AppStateNotifier get instance => _instance ??= AppStateNotifier._();
 
-  SaborLocalV05AuthUser? initialUser;
-  SaborLocalV05AuthUser? user;
+  SaborLocalV05CopyAuthUser? initialUser;
+  SaborLocalV05CopyAuthUser? user;
   bool showSplashImage = true;
   String? _redirectLocation;
 
@@ -55,7 +55,7 @@ class AppStateNotifier extends ChangeNotifier {
   /// to perform subsequent actions (such as navigation) afterwards.
   void updateNotifyOnAuthChange(bool notify) => notifyOnAuthChange = notify;
 
-  void update(SaborLocalV05AuthUser newUser) {
+  void update(SaborLocalV05CopyAuthUser newUser) {
     final shouldUpdate =
         user?.uid == null || newUser.uid == null || user?.uid != newUser.uid;
     initialUser ??= newUser;

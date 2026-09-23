@@ -47,8 +47,8 @@ class CustomAuthManager {
     uid = null;
 
     // Update the current user.
-    saborLocalV05AuthUserSubject.add(
-      SaborLocalV05AuthUser(loggedIn: false),
+    saborLocalV05CopyAuthUserSubject.add(
+      SaborLocalV05CopyAuthUser(loggedIn: false),
     );
     // Clearing the stored values is best effort from here: the marker has
     // already made the session unusable, so a failure only leaves inert data
@@ -56,7 +56,7 @@ class CustomAuthManager {
     await _clearPersistedSession();
   }
 
-  Future<SaborLocalV05AuthUser?> signIn({
+  Future<SaborLocalV05CopyAuthUser?> signIn({
     String? authenticationToken,
     String? refreshToken,
     DateTime? tokenExpiration,
@@ -88,7 +88,7 @@ class CustomAuthManager {
     );
   }
 
-  Future<SaborLocalV05AuthUser?> _updateCurrentUser({
+  Future<SaborLocalV05CopyAuthUser?> _updateCurrentUser({
     String? authenticationToken,
     String? refreshToken,
     DateTime? tokenExpiration,
@@ -100,11 +100,11 @@ class CustomAuthManager {
     this.uid = authUid;
 
     // Update the current user stream.
-    final updatedUser = SaborLocalV05AuthUser(
+    final updatedUser = SaborLocalV05CopyAuthUser(
       loggedIn: true,
       uid: authUid,
     );
-    saborLocalV05AuthUserSubject.add(updatedUser);
+    saborLocalV05CopyAuthUserSubject.add(updatedUser);
     await persistAuthData();
     return updatedUser;
   }
@@ -127,8 +127,8 @@ class CustomAuthManager {
         // the stored session. Restore nothing, and retry the cleanup, which
         // removes the marker once it succeeds.
         await _clearPersistedSession();
-        saborLocalV05AuthUserSubject.add(
-          SaborLocalV05AuthUser(loggedIn: false),
+        saborLocalV05CopyAuthUserSubject.add(
+          SaborLocalV05CopyAuthUser(loggedIn: false),
         );
         return;
       }
@@ -151,11 +151,11 @@ class CustomAuthManager {
     final authTokenExists = authenticationToken != null;
     final tokenExpired =
         tokenExpiration != null && tokenExpiration!.isBefore(DateTime.now());
-    final updatedUser = SaborLocalV05AuthUser(
+    final updatedUser = SaborLocalV05CopyAuthUser(
       loggedIn: authTokenExists && !tokenExpired,
       uid: uid,
     );
-    saborLocalV05AuthUserSubject.add(updatedUser);
+    saborLocalV05CopyAuthUserSubject.add(updatedUser);
   }
 
   // Migrates auth session data that was previously persisted in plaintext
@@ -369,5 +369,5 @@ class CustomAuthManager {
   }
 }
 
-SaborLocalV05AuthUser? currentUser;
+SaborLocalV05CopyAuthUser? currentUser;
 bool get loggedIn => currentUser?.loggedIn ?? false;

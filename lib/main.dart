@@ -51,7 +51,7 @@ class _MyAppState extends State<MyApp> {
       _router.routerDelegate.currentConfiguration.matches
           .map((e) => getRoute(e))
           .toList();
-  late Stream<SaborLocalV05AuthUser> userStream;
+  late Stream<SaborLocalV05CopyAuthUser> userStream;
 
   @override
   void initState() {
@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> {
 
     _appStateNotifier = AppStateNotifier.instance;
     _router = createRouter(_appStateNotifier);
-    userStream = saborLocalV05AuthUserStream()
+    userStream = saborLocalV05CopyAuthUserStream()
       ..listen((user) {
         _appStateNotifier.update(user);
       });
@@ -79,7 +79,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'Sabor Local v05',
+      title: 'Sabor Local v05 copy',
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

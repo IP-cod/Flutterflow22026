@@ -47,8 +47,8 @@ class _ErroWidgetState extends State<ErroWidget> {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
-        child: Image.asset(
-          'assets/images/cone-de-mensagem-erro-smbolo-logotipo-design-vetor-logo-236124120_(2).png',
+        child: Image.network(
+          'https://images.unsplash.com/photo-1636110291887-a1a76d79ccaa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxMHx8ZXJyb3J8ZW58MHx8fHwxNzkwMDc4MzQxfDA&ixlib=rb-4.1.0&q=80&w=1080',
           width: 200.0,
           height: 200.0,
           fit: BoxFit.cover,
